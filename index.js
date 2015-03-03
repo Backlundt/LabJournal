@@ -13,5 +13,10 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.post('/queryData');
-app.post('/saveData');
+app.post('/queryData',function(req,res){
+
+});
+
+app.post('/saveData',function(req,res){
+
+});
