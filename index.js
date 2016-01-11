@@ -3,6 +3,7 @@ var express = require('express'),
     port = process.argv[2] || 80;
 var bodyParser = require('body-parser');
 var dataHandler = require('./dataHandler');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 app.listen(port);
 // Create database handle
@@ -47,10 +48,35 @@ app.post('/saveData',function(req,res){
   var data = new db.dataset(req.body);
   data.save(function(err){
     if(!err)
-    	res.send("ok");
+    	res.send(data._id);
     else
     	res.send(err)
   });
 });
 
 
+app.post('/queryResult',function(req,res){
+ console.log("query");
+
+
+ console.dir(req.body);
+ db.results.find(req.body).populate("dataSet").exec(function(err,dat){
+	if(!err)
+   	   res.json(dat);
+ 	else
+   	   res.send(err);
+ })
+});
+//save data
+app.post('/saveResult',function(req,res){
+  console.dir("save result")
+  console.log(req.body);
+  var result = new db.results(req.body);
+  result.data = new ObjectId(req.body.data);
+  result.save(function(err){
+    if(!err)
+    	res.send(result._id);
+    else
+    	res.send(err)
+  });
+});
