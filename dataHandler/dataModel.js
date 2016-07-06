@@ -15,7 +15,10 @@ var dataModel = {};
   dataModel.results = {
     date:{type:Date, default: Date.now},
     dataSet:{ type: Schema.Types.ObjectId, ref: 'dataset' },
-    files: [String]
+    files: [String],
+    analysis:String,
+    description: String
+
   }
 
   module.exports=dataModel
