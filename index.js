@@ -18,6 +18,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(express.static(__dirname + '/site'));
 // Use body parser middleware
 app.use(bodyParser.json());
 
@@ -29,6 +30,7 @@ app.get('/getAll',function(req,res){
    	   res.send(err);
  })
 });
+
 //queries
 app.post('/queryData',function(req,res){
  console.log("query")
