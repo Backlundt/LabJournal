@@ -17,18 +17,27 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
+// Static html hosting
+//
+//
+app.use(express.static(__dirname + '/public'));
+//app.use('/*', function(req, res){
+  //res.sendfile(__dirname + '/public/index.html');
+//});
+app.set('view options', {
+  layout: false
+});
 // Use body parser middleware
 app.use(bodyParser.json());
 
-app.get('/getAll',function(req,res){
- db.dataset.find({},function(err,dat){
-	if(!err)
-   	   res.json(dat);
- 	else
-   	   res.send(err);
- })
-});
+//app.get('/getAll',function(req,res){
+ //db.dataset.find({},function(err,dat){
+	//if(!err)
+        //res.json(dat);
+   //else
+        //res.send(err);
+ //})
+//});
 //queries
 app.post('/queryData',function(req,res){
  console.log("query")
@@ -54,7 +63,30 @@ app.post('/saveData',function(req,res){
   });
 });
 
+app.post('/saveNote',function(req,res){
+  console.dir("save note")
+  console.log(req.body);
+  var data = new db.note(req.body);
+  data.save(function(err){
+    if(!err)
+      res.send(data._id);
+    else
+      res.send(err)
+  });
+});
 
+app.post('/queryNote',function(req,res){
+ console.log("query");
+
+
+ console.dir(req.body);
+ db.note.find(req.body).exec(function(err,dat){
+	if(!err)
+   	   res.json(dat);
+ 	else
+   	   res.send(err);
+ });
+});
 app.post('/queryResult',function(req,res){
  console.log("query");
 

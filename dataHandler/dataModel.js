@@ -21,4 +21,9 @@ var dataModel = {};
 
   }
 
+  dataModel.note = {
+    date:{type:Date, default: Date.now},
+    text: String,
+    project: String 
+  }
   module.exports=dataModel
