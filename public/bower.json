@@ -1,0 +1,10 @@
+{
+  "name": "LabJournal",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "showdown": "^1.4.3",
+    "angular-sanitize": "^1.5.8",
+    "ng-showdown": "^1.1.0"
+  }
+}
