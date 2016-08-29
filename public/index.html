@@ -1,0 +1,36 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html ng-app="LabJournal">
+<head>
+
+<script type="text/javascript" src="./bower_components/angular/angular.js"></script>
+
+<script type="text/javascript" src="./bower_components/angular-route/angular-route.js"></script>
+
+<script type="text/javascript" src="./js/main.js"></script>
+
+<script type="text/javascript" src="./bower_components/angular-sanitize/angular-sanitize.js"></script>
+
+<script type="text/javascript" src="./bower_components/showdown/dist/showdown.js"></script>
+<script type="text/javascript" src="./bower_components/ng-showdown/dist/ng-showdown.js"></script>
+</head>
+<body ng-controller="noteController">
+
+  <div>
+    Project: {{displayedProject}} 
+  </div>
+    <input type="text" ng-model="note.project">
+	<button ng-click="update(note)">save</button>    
+	<button ng-click="loadProject(note.project)">load</button>    
+  <div ng-repeat="n in notes">
+    <p markdown-to-html="n.text"></p>
+  </div>
+  <p markdown-to-html="note.text"></p>
+  <textarea name="text" cols=100 rows=10 ng-model=note.text>
+
+
+
+
+
+</body>
