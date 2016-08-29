@@ -30,14 +30,6 @@ app.set('view options', {
 // Use body parser middleware
 app.use(bodyParser.json());
 
-//app.get('/getAll',function(req,res){
- //db.dataset.find({},function(err,dat){
-	//if(!err)
-        //res.json(dat);
-   //else
-        //res.send(err);
- //})
-//});
 //queries
 app.post('/queryData',function(req,res){
  console.log("query")
