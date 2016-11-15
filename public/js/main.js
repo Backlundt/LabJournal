@@ -14,8 +14,20 @@ var note = angular.module('LabJournal', [
     //}
   //}
 //});
+note.config(['$showdownProvider', function($showdownProvider) {
+  
+  $showdownProvider.setOption("tables",true);
+  //$showdownProvider.Converter({extensions:"katex-latex"});
+}]);
 
-note.controller('noteController',function noteController($scope,$showdown,$http) {
+note.controller('noteController',function noteController($scope,$showdown,$http,$window) {
+  $window.katex = {};
+  $window.katex.config = {
+        displayMode: true,
+      throwOnError: false, //allows katex to fail silently
+      errorColor: '#00c2c9'
+  };
+  console.log($showdown);
 
   $scope.notes = [];
   $scope.note = {};
@@ -23,7 +35,6 @@ note.controller('noteController',function noteController($scope,$showdown,$http)
   $scope.note.project = ""
   $scope.displayedProject = ""
   $scope.update = function(note) {
-    console.log("wat");
     console.log(note);
     $http({
       method: "post",
@@ -32,7 +43,10 @@ note.controller('noteController',function noteController($scope,$showdown,$http)
     })
     .success(function(err,res){
 
-      console.log("hurra ",err,res);
+      $scope.newNote = {}
+      $scope.newNote.text = note.text; 
+      $scope.notes.push($scope.newNote);
+      $scope.note.text = "";
     
     });
   };
@@ -54,6 +68,7 @@ note.controller('noteController',function noteController($scope,$showdown,$http)
       $scope.notes = res;
       console.log($scope.notes);
     
+
     });
   };
 

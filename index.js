@@ -4,6 +4,9 @@ var express = require('express'),
 var bodyParser = require('body-parser');
 var dataHandler = require('./dataHandler');
 var ObjectId = require('mongoose').Types.ObjectId;
+var fs = require('fs');
+var config = require('./config');
+
 
 app.listen(port);
 // Create database handle
@@ -60,10 +63,20 @@ app.post('/saveNote',function(req,res){
   console.log(req.body);
   var data = new db.note(req.body);
   data.save(function(err){
-    if(!err)
+
+    fs.writeFile(config.home+"params/"+req.body.project+"/notes."+data.date+".md", req.body.text, function(err) {
+      if(err) {
+
+        return console.log(err);
+      }
+
+      if(!err)
       res.send(data._id);
-    else
+      else
       res.send(err)
+
+    }); 
+
   });
 });
 
@@ -72,7 +85,7 @@ app.post('/queryNote',function(req,res){
 
 
  console.dir(req.body);
- db.note.find(req.body).exec(function(err,dat){
+ db.note.find(req.body).sort('date').exec(function(err,dat){
 	if(!err)
    	   res.json(dat);
  	else
