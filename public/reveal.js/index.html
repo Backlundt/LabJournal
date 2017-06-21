@@ -24,37 +24,71 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
+
         <section data-markdown>
-          ##Calculating covariance matrices for high dimensional quenched trap models
+          Groupseminar 19.04.17
+          ## Sources of anomalous diffusion for diffusion processes in hierarchical free energy landscape
           Andreas Volkhardt
 
-          Groupseminar
         </section>
 
         <section>
-          <section data-markdown>
-            ## Motivation
-            ![](../../figs/tpca.png)
+          <h3>
+            Example: continuous time random walk (CTRW)
+          </h3>
 
-          </section>
 
-          <section data-markdown>
-            ## Hierarchical energy landscapes
-          </section>
+          
+            <img class="plot" src="../../figs/ctrw_scheme.svg">
+            <ul class=result>
+              <li>
+                random walk process with dwell times in visited states
+              </li> 
+              <li>
+                Variance is proportional to number of random walk steps $\sigma^2 \propto N$
+              </li> 
+
+            </ul>
+
+
         </section>
 
         <section>
-          <section data-markdown>
-            ## A hierarchical model free energy landscape 
-          </section>
+          <h3>
+            Long tailed waiting time distributions cause subdiffusion 
+          </h3>
+          <p>
+          
+            <ul class=result>
 
+              <li>
+                Central theorem applies: $N \propto T$ -> normal diffusion 
+              </li> 
+
+              <li>
+              
+                When central limit theorem applies, also $N \propto T$ -> normal diffusion 
+              </li> 
+            </ul>
+          </p>
         </section>
         <section>
-          <section data-markdown>
-            ## Is it possible to derive a covariance matrix for a high dimensional quenched trap model?
-          </section>
+          <h3>
+            Waiting times are <em>not</em> responsible for subdiffusion in 1-D
+          </h3>
+            <img class="plot" src="../../figs/TN.png">
+            <ul class="result">
+              <li>
+                 Simulation: $1000$ random walks, $N=10^4$ steps, $\Delta F = 3 [kT]$
+              </li>
+              <li>
+                Number of visits $N$ is proportional to the passed time $T$ 
+              </li>
+
+            </ul>
 
         </section>
+
 			</div>
 		</div>
 
@@ -67,13 +101,22 @@
 				history: true,
         loop: true,
 				// More info https://github.com/hakimel/reveal.js#dependencies
+        math: {
+mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+},
+
 				dependencies: [
+        { src: 'plugin/math/math.js', async: true },
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
 			});
+
+Reveal.configure({ slideNumber: true });
+
 		</script>
 	</body>
 </html>

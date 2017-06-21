@@ -38,7 +38,7 @@ app.post('/queryData',function(req,res){
  console.log("query")
  console.dir(req.body)
  db.dataset.find(req.body,function(err,dat){
-   	console.dir(dat)
+     //console.dir(dat)
 	if(!err)
    	   res.json(dat);
  	else
@@ -47,8 +47,8 @@ app.post('/queryData',function(req,res){
 });
 //save data
 app.post('/saveData',function(req,res){
-  console.dir("save data")
-  console.log(req.body);
+  //console.dir("save data")
+  //console.log(req.body);
   var data = new db.dataset(req.body);
   data.save(function(err){
     if(!err)
@@ -59,8 +59,8 @@ app.post('/saveData',function(req,res){
 });
 
 app.post('/saveNote',function(req,res){
-  console.dir("save note")
-  console.log(req.body);
+  //console.dir("save note")
+  //console.log(req.body);
   var data = new db.note(req.body);
   data.save(function(err){
 
@@ -81,10 +81,10 @@ app.post('/saveNote',function(req,res){
 });
 
 app.post('/queryNote',function(req,res){
- console.log("query");
+ //console.log("query");
 
 
- console.dir(req.body);
+ //console.dir(req.body);
  db.note.find(req.body).sort('date').exec(function(err,dat){
 	if(!err)
    	   res.json(dat);
@@ -93,10 +93,10 @@ app.post('/queryNote',function(req,res){
  });
 });
 app.post('/queryResult',function(req,res){
- console.log("query");
+ //console.log("query");
 
 
- console.dir(req.body);
+ //console.dir(req.body);
  db.results.find(req.body).populate("dataSet").exec(function(err,dat){
 	if(!err)
    	   res.json(dat);
@@ -106,8 +106,8 @@ app.post('/queryResult',function(req,res){
 });
 //save data
 app.post('/saveResult',function(req,res){
-  console.dir("save result")
-  console.log(req.body);
+  //console.dir("save result")
+  //console.log(req.body);
   var result = new db.results(req.body);
   result.data = new ObjectId(req.body.data);
   result.save(function(err){
@@ -117,3 +117,108 @@ app.post('/saveResult',function(req,res){
     	res.send(err)
   });
 });
+queue = [];
+app.post('/itemsInQueue',function(req,res){
+
+  //console.log(req.body);
+  //console.log(queue);
+  //if(req.body.project in queue){
+
+  db.queue.where({pending:true}).count(function(err,count){
+    res.json(count);
+  });
+  
+  //} 
+  //else{
+  
+    //res.json(0)
+  //}
+
+
+  //res.json(sims[sims.length-1]);
+  //sims.pop();
+
+});
+app.post('/addToQueue',function(req,res){
+
+  console.log(req.body);
+
+
+  if(req.body.project){
+
+    var p = req.body.project;
+
+    if(req.body.stage){
+
+    var s = req.body.stage;
+      if(req.body.paramFiles){
+        var files =req.body.paramFiles;
+        var newItem = new db.queue({project:p,stage:s,files:files});
+        newItem.save(function(){
+          res.send("ok");
+        });
+      }
+      else{
+        res.send("no parameter files") ;
+      }
+    }
+    else{
+    
+     
+        res.send("no stage specified") ;
+    }
+  
+  } 
+  else{
+  
+    res.send("no project specified") ;
+  }
+
+
+  //res.json(sims[sims.length-1]);
+  //sims.pop();
+
+});
+app.post('/nextSim',function(req,res){
+  //console.log(req.body);
+
+
+  if(req.body.project){
+
+    var p = req.body.project;
+    var thisQueue = [];
+
+    for(var i=0; i < queue.length;i++){
+
+      if(queue[i].project == p) thisQueue.append(queue[i]);
+    
+    }
+
+    if(req.body.stage){
+
+      var s = req.body.stage;
+      var thatQueue = [];
+      for(var i=0; i < thisQueue.length;i++){
+
+        if(thisQueue[i].stage == s) thatQueue.append(thisQueue[i]);
+
+      }
+
+
+      res.json(thatQueue[0]);
+      thatQueue.shift()
+    }
+    else{
+
+      res.json(thisQueue[0]);
+      thisQueue.shift()
+    
+    }
+  }
+  else{
+    res.json(queue[0]);
+    queue.shift();
+  }
+
+});
+

@@ -5,6 +5,8 @@
  *
  * Copyright (C) 2016 Hakim El Hattab, http://hakim.se
  */
+
+
 /*********************************************
  * RESET STYLES
  *********************************************/
@@ -32,6 +34,26 @@ html, body, .reveal div, .reveal span, .reveal applet, .reveal object, .reveal i
 .reveal footer, .reveal header, .reveal hgroup, .reveal menu, .reveal nav, .reveal section {
   display: block; }
 
+.reveal em{
+  color:red;
+
+}
+
+.plot{
+
+  display:inline;
+  float:left;
+  width:66%;
+}
+.result{
+  display:inline;
+  float:right;
+  width:30%;
+
+}
+.content{
+
+}
 /*********************************************
  * GLOBAL STYLES
  *********************************************/
