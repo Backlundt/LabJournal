@@ -186,38 +186,62 @@ app.post('/nextSim',function(req,res){
   if(req.body.project){
 
     var p = req.body.project;
-    var thisQueue = [];
-
-    for(var i=0; i < queue.length;i++){
-
-      if(queue[i].project == p) thisQueue.append(queue[i]);
-    
-    }
 
     if(req.body.stage){
 
       var s = req.body.stage;
-      var thatQueue = [];
-      for(var i=0; i < thisQueue.length;i++){
 
-        if(thisQueue[i].stage == s) thatQueue.append(thisQueue[i]);
+      db.queue.where({pending:true}).findOne({project:p,stage:s},function(err,item){
+      
+        if(item){
+          item.pending = false;
+          item.save(function(err){
 
-      }
+            res.json(item);
+
+          });
+        }
+        else res.json({});
+      });
 
 
-      res.json(thatQueue[0]);
-      thatQueue.shift()
     }
     else{
 
-      res.json(thisQueue[0]);
-      thisQueue.shift()
+
+      db.queue.where({pending:true}).findOne({project:p},function(err,item){
+      
+        if(item){
+          item.pending = false;
+          item.save(function(err){
+
+            res.json(item);
+
+          });
+        }
+        else res.json({});
+
+      });
     
     }
   }
   else{
-    res.json(queue[0]);
-    queue.shift();
+
+      db.queue.where({pending:true}).findOne({},function(err,item){
+      
+        if(item){
+          item.pending = false;
+          item.save(function(err){
+
+            res.json(item);
+
+          });
+        }
+        else{
+          res.json({});
+        }
+
+      });
   }
 
 });
