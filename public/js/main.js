@@ -20,8 +20,9 @@ note.controller('noteController',function noteController($scope,$showdown,$http)
   $scope.notes = [];
   $scope.note = {};
   $scope.note.text = "";
-  $scope.note.project = ""
-  $scope.displayedProject = ""
+  $scope.note.project = "";
+  $scope.displayedProject = "";
+  $scope.renderMarkdown = true;
   $scope.update = function(note) {
     console.log("wat");
     console.log(note);

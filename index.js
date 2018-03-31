@@ -67,17 +67,28 @@ app.post('/saveNote',function(req,res){
   });
 });
 
-app.post('/queryNote',function(req,res){
- console.log("query");
+app.post('/queryProjects',function(req,res){
+ console.log("queryProjects");
 
 
- console.dir(req.body);
- db.note.find(req.body).exec(function(err,dat){
-	if(!err)
-   	   res.json(dat);
- 	else
-   	   res.send(err);
- });
+
+  var o = {};
+
+  o.map = function(){
+    emit(this.project,this.date);
+  };
+  o.reduce = function(key,values){
+    var sorted = values.sort();
+    return sorted[0];
+  };
+
+  db.note.mapReduce(o,function(err,model,stats){
+
+    model.find().exec(function(err,docs){
+      console.log(docs)
+    })
+
+  });
 });
 app.post('/queryResult',function(req,res){
  console.log("query");
