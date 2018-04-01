@@ -12,4 +12,6 @@ dataHandler.prototype.results = db.model('results',dataModel.results);
 
 dataHandler.prototype.note = db.model('note',dataModel.note);
 
+dataHandler.prototype.queue = db.model('queue',dataModel.queue);
+
 module.exports=dataHandler;

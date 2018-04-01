@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+        <section data-markdown>
+          Groupseminar 19.04.17
+          ## Sources of anomalous diffusion for diffusion processes in hierarchical free energy landscape
+          Andreas Volkhardt
+
+        </section>
+
+        <section>
+          <h3>
+            Example: continuous time random walk (CTRW)
+          </h3>
+
+
+          
+            <img class="plot" src="../../figs/ctrw_scheme.svg">
+            <ul class=result>
+              <li>
+                random walk process with dwell times in visited states
+              </li> 
+              <li>
+                Variance is proportional to number of random walk steps $\sigma^2 \propto N$
+              </li> 
+
+            </ul>
+
+
+        </section>
+
+        <section>
+          <h3>
+            Long tailed waiting time distributions cause subdiffusion 
+          </h3>
+          <p>
+          
+            <ul class=result>
+
+              <li>
+                Central theorem applies: $N \propto T$ -> normal diffusion 
+              </li> 
+
+              <li>
+              
+                When central limit theorem applies, also $N \propto T$ -> normal diffusion 
+              </li> 
+            </ul>
+          </p>
+        </section>
+        <section>
+          <h3>
+            Waiting times are <em>not</em> responsible for subdiffusion in 1-D
+          </h3>
+            <img class="plot" src="../../figs/TN.png">
+            <ul class="result">
+              <li>
+                 Simulation: $1000$ random walks, $N=10^4$ steps, $\Delta F = 3 [kT]$
+              </li>
+              <li>
+                Number of visits $N$ is proportional to the passed time $T$ 
+              </li>
+
+            </ul>
+
+        </section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+        loop: true,
+				// More info https://github.com/hakimel/reveal.js#dependencies
+        math: {
+mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+},
+
+				dependencies: [
+        { src: 'plugin/math/math.js', async: true },
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+
+Reveal.configure({ slideNumber: true });
+
+		</script>
+	</body>
+</html>

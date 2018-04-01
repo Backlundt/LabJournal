@@ -3,6 +3,10 @@
 
 <html ng-app="LabJournal">
 <head>
+<link rel="stylesheet" type="text/css" href="./css/main.css" /> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+
 
 <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
 
@@ -10,10 +14,15 @@
 
 <script type="text/javascript" src="./js/main.js"></script>
 
-<script type="text/javascript" src="./bower_components/angular-sanitize/angular-sanitize.js"></script>
 
-<script type="text/javascript" src="./bower_components/showdown/dist/showdown.js"></script>
+<script type="text/javascript" src="./bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script type="text/javascript" src="./bower_components/showdown/dist/showdown.js"> </script>
+
 <script type="text/javascript" src="./bower_components/ng-showdown/dist/ng-showdown.js"></script>
+
+
+
+
 </head>
 <body ng-controller="noteController">
 
@@ -21,13 +30,18 @@
     Project: {{displayedProject}} 
   </div>
     <input type="text" ng-model="note.project">
-	<button ng-click="update(note)">save</button>    
-	<button ng-click="loadProject(note.project)">load</button>    
-  <div ng-repeat="n in notes">
+  <button id="saveButton" ng-click="update(note)">save</button>    
+  <button id="loadButton" ng-click="loadProject(note.project)">load</button>    
+  <div id="test" ng-repeat="n in notes">
     <p markdown-to-html="n.text"></p>
   </div>
+  <hr>
   <p markdown-to-html="note.text"></p>
   <textarea name="text" cols=100 rows=10 ng-model=note.text>
+
+<script>
+
+</script>
 
 
 
