@@ -33,6 +33,9 @@ These are the API entry points:
 
 ## Analysis
 
+# Notes
+
+ - inline latex can be rendered after ":>"
 
 # ToDo
 - Implement analysis collection

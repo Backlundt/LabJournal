@@ -5,7 +5,7 @@ var dataModel = {};
 dataModel.queue = {
   project:String,
   stage:String,
-  files:{type:String,unique:true},
+  files:{type:String},
   pending:{type:Boolean,default:true},
   done:Date,
   created: {type:Date,default:Date.now}

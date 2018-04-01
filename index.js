@@ -153,8 +153,11 @@ app.post('/addToQueue',function(req,res){
     var s = req.body.stage;
       if(req.body.paramFiles){
         var files =req.body.paramFiles;
-        var newItem = new db.queue({project:p,stage:s,files:files});
-        newItem.save(function(){
+        var newItem = new db.queue({project:p,stage:s,files:files,pending:true});
+        newItem.save(function(err){
+
+          console.log("accepted job");
+          console.log(err);
           res.send("ok");
         });
       }
