@@ -42,6 +42,30 @@ note.config(['$showdownProvider', function($showdownProvider) {
   //$showdownProvider.Converter({extensions:"katex-latex"});
 }]);
 
+note.controller('projectController',function projectController($scope,$showdown,$http,$location) {
+  //$window.katex = {};
+  //$window.katex.config = {
+        //displayMode: true,
+      //throwOnError: false, //allows katex to fail silently
+      //errorColor: '#00c2c9'
+  //};
+
+
+
+  $http({
+    method: "post",
+    url: "/queryProjects",
+    data: {}
+  })
+    .success(function(res,err){
+      $scope.projects= res;
+      console.log("hurra projects",err,res);
+      console.log($scope.projects);
+
+
+    });
+
+});
 note.controller('noteController',function noteController($scope,$showdown,$http,$location) {
   //$window.katex = {};
   //$window.katex.config = {
@@ -66,12 +90,25 @@ note.controller('noteController',function noteController($scope,$showdown,$http,
     })
     .success(function(err,res){
 
+  $http({
+    method: "post",
+    url: "/queryProjects",
+    data: {}
+  })
+    .success(function(res,err){
+      $scope.projects= res;
+      console.log("hurra projects",err,res);
+      console.log($scope.projects);
+
       $scope.newNote = {}
       $scope.newNote.text = note.text; 
       $scope.notes.push($scope.newNote);
       $scope.note.text = "";
     
       console.log(note.text);
+
+    });
+      
     });
   };
 

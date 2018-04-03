@@ -87,20 +87,26 @@ app.post('/queryProjects',function(req,res){
   var o = {};
 
   o.map = function(){
-    emit(this.project,this.date);
+    emit(this.project,{date:this.date,text:this.text});
   };
   o.reduce = function(key,values){
+    //console.log(values);
     var sorted = values.sort();
     return sorted[0];
   };
 
   db.note.mapReduce(o,function(err,model,stats){
+    console.log(err)
+    console.log(model)
+    console.log(stats)
+    res.send(model)
 
-    model.find().exec(function(err,docs){
-      console.log(docs)
-    })
+    //model.find({},function(err,docs){
+      //console.log(docs)
+    //});
 
   });
+});
 app.post('/queryNote',function(req,res){
  //console.log("query");
 
@@ -203,6 +209,7 @@ app.post('/addToQueue',function(req,res){
   //sims.pop();
 
 });
+
 app.post('/nextSim',function(req,res){
   //console.log(req.body);
 

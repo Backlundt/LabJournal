@@ -24,20 +24,38 @@
 
 
 </head>
-<body ng-controller="noteController">
+<body >
+
+  <h1> LabJournal</h1>
+  <!--<h2> projects:</h2>-->
+  <div ng-controller="noteController">
+  <div ng-controller="projectController">
+    <!--<div id="projects" ng-repeat="p in projects">-->
+      <button id="projects" ng-repeat="p in projects" ng-click="loadProject(p._id)">{{p._id}}</button>
+    <!--</div>-->
+
+  </div>
+
+  <button id="saveButton" ng-click="update(note)">save</button>    
+    <input type="text" ng-model="note.project">
+
+  <button id="loadButton" ng-click="loadProject(note.project)">new</button>    
+  <hr>
 
   <div>
-    Project: {{displayedProject}} 
+    <h2>{{displayedProject}} </h2>
   </div>
-    <input type="text" ng-model="note.project">
-  <button id="saveButton" ng-click="update(note)">save</button>    
-  <button id="loadButton" ng-click="loadProject(note.project)">load</button>    
+
   <div id="test" ng-repeat="n in notes">
     <p markdown-to-html="n.text"></p>
   </div>
   <hr>
   <p markdown-to-html="note.text"></p>
   <textarea name="text" cols=100 rows=10 ng-model=note.text>
+   
+    
+  </div>
+
 
 <script>
 
